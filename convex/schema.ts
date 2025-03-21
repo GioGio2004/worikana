@@ -1,5 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { create } from "domain";
 
 export default defineSchema({
   users: defineTable({
@@ -13,14 +14,9 @@ export default defineSchema({
     .index("by_name", ["name"])
     .index("by_email", ["email"]),
 
-    // messages: defineTable({
-    //   userId: v.id("users"),
-    //   content: v.string(),
-    //   role: v.string(), // "user" or "assistant"
-    //   timestamp: v.string(),
-    // }).index("by_chatId", ["userId"]),
-
-    // conversations: defineTable({
-    //   userId: v.id("users"),
-    // }).index("by_userId", ["userId"]),
+  messages: defineTable({
+    userId: v.string(),
+    meessages: v.string(),
+    createdAt: v.number(),
+  }).index("by_userId", ["userId"]),
 });

@@ -20,6 +20,7 @@ import { Send, Bot } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { SignOutButton, UserButton } from "@clerk/clerk-react";
 import ToogleTheme from "@/components/toogle-theme";
+import Speech from "@/components/userSpeech";
 
 export default function Page() {
   // const [chatId, setChatId] = useState<string | undefined>(undefined);
@@ -47,6 +48,8 @@ export default function Page() {
     inputRef.current?.focus();
   }, []);
 
+
+  // this is where the caht response is being handled
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -222,6 +225,8 @@ export default function Page() {
                   </Button>
                 </div>
               </div>
+              {/* speak with ai */}
+               <Speech />
             </CardContent>
           </Card>
         </div>
