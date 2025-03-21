@@ -1,10 +1,7 @@
 "use client";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbList,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbList } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -24,7 +21,9 @@ import Speech from "@/components/userSpeech";
 
 export default function Page() {
   // const [chatId, setChatId] = useState<string | undefined>(undefined);
-  const [messages, setMessages] = useState<{ sender: string; text: string; id: string }[]>([]);
+  const [messages, setMessages] = useState<
+    { sender: string; text: string; id: string }[]
+  >([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -48,24 +47,33 @@ export default function Page() {
     inputRef.current?.focus();
   }, []);
 
-
   // this is where the caht response is being handled
   const sendMessage = async () => {
     if (!input.trim()) return;
 
     const newMessage = { sender: "You", text: input, id: `user-${Date.now()}` };
-    setMessages(prev => [...prev, newMessage]);
+    setMessages((prev) => [...prev, newMessage]);
     setInput("");
     setLoading(true);
 
     try {
-      const { data } = await axios.post("/api/chat", { 
+      const { data } = await axios.post("/api/chat", {
         message: input,
         // chatId: chatId
       });
-      setMessages(prev => [...prev, { sender: "Bot", text: data.reply, id: `bot-${Date.now()}` }]);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "Bot", text: data.reply, id: `bot-${Date.now()}` },
+      ]);
     } catch {
-      setMessages(prev => [...prev, { sender: "Bot", text: "Error processing request", id: `error-${Date.now()}` }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "Bot",
+          text: "Error processing request",
+          id: `error-${Date.now()}`,
+        },
+      ]);
     } finally {
       setLoading(false);
       inputRef.current?.focus();
@@ -87,8 +95,8 @@ export default function Page() {
   };
 
   return (
-    <SidebarProvider >
-      <AppSidebar className="bg-slate-900"/>
+    <SidebarProvider>
+      <AppSidebar className="bg-slate-900" />
       <SidebarInset className="flex flex-col h-screen overflow-hidden bg-slate-900">
         {/* Header with sidebar trigger */}
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 bg-slate-800 border-slate-700">
@@ -109,9 +117,8 @@ export default function Page() {
                 className="border-slate-600 hover:bg-slate-700 text-orange-400"
               >
                 <span className="hidden sm:inline">გამოსვლა</span>
-                
+
                 <span className="sm:hidden">გამოსვლა</span>
-              
               </Button>
             </SignOutButton>
             <ToogleTheme />
@@ -130,8 +137,8 @@ export default function Page() {
                       <Bot size={28} className="text-orange-400" />
                     </div>
                     <p className="text-base sm:text-lg">
-                      <strong>მოდი მეჭორავე</strong>, აბა ვიზე გიდა
-                      საუბარი ჩემო ლამაზო
+                      <strong>მოდი მეჭორავე</strong>, აბა ვიზე გიდა საუბარი ჩემო
+                      ლამაზო
                     </p>
                     <p className="text-xs sm:text-sm mt-2 text-slate-500">
                       პაწი მომენატრე
@@ -149,13 +156,11 @@ export default function Page() {
                     >
                       <div
                         className={`flex-none w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${
-                          msg.sender === "You"
-                            ? ""
-                            : "bg-slate-700"
+                          msg.sender === "You" ? "" : "bg-slate-700"
                         }`}
                       >
                         {msg.sender === "You" ? (
-                          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-slate-700 rounded-full"> 
+                          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-slate-700 rounded-full">
                             <UserButton />
                           </div>
                         ) : (
@@ -213,12 +218,13 @@ export default function Page() {
                     className="flex-grow bg-slate-700 border-blue-900 focus:border-orange-500 focus:ring-orange-500 resize-none min-h-[36px] sm:min-h-[40px] max-h-[100px] sm:max-h-[150px] text-slate-100 text-sm sm:text-base"
                     style={{ height: "auto" }}
                   />
+                  <Speech />
                   <Button
                     onClick={sendMessage}
                     disabled={loading || !input.trim()}
                     className="flex-none bg-orange-500 hover:bg-orange-600 text-slate-900 h-8 sm:h-10 px-2 sm:px-4 relative"
                   >
-                    {!loading && <Send size={10} />}
+                    {!loading && <Send size={18} className="sm:size-5" />}
                     {loading && (
                       <div className="h-3 w-3 sm:h-4 sm:w-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div>
                     )}
@@ -226,7 +232,7 @@ export default function Page() {
                 </div>
               </div>
               {/* speak with ai */}
-               <Speech />
+              {/* <Speech /> */}
             </CardContent>
           </Card>
         </div>
