@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Vapi from "@vapi-ai/web";
 import { Button } from './ui/button';
 
