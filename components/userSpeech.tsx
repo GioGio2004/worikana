@@ -10,7 +10,7 @@ function Speech() {
 
   const startCall = async () => {
     try {
-      await vapi.start("9bf48c1d-9db3-4ca1-8d56-e62f0c8c9ab8");
+      await vapi.start("395da044-6e5b-4a24-b35f-4e6e7b362012");
       setIsCallActive(true);
       console.log("Call started successfully");
     } catch (error) {
